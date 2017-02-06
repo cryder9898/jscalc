@@ -1,48 +1,54 @@
 $(document).ready(function(){
 	var input = '';
-	var op = false;
+	var num = '';
 
-	function setZero() {
+	function clearEntry() {
 		$('#screen').text(0);
+		var lastNum = input.match(/(\d+.)$/g)[0];	// match the last full number entered
+		input = input.substr(0, input.length-lastNum.length);	// remove last number entered
+    	num = '';
 	}
 
 	function allClear () {
+		$('#screen').text(0);
 		input = '';
-		op = false;
+		num = '';
 	}
 
-	function eval () {
-		
+	function eval (input) {
+		var str = input;
 	}
 
-	setZero();
     $('.calc-btn').click(function () {
     	var id = this.id;
     	switch (id) {
     		case 'AC':
-    			setZero();
     			allClear();
     			break;
     		case 'CE':
-    			setZero();
+    			clearEntry();
     			break;
-			case '+':
+			case '+': 
 			case '-':
 			case '%':
-			case 'X':
-				if (!op) {
-					op = true;
-			   		input += id;
-					setZero();
+			case 'x':
+				// if the last character in input is not x+-%
+				if (!/[x\+\-%]$/.test(input)) {
+					input += id;
+					$('#screen').text(id);
+					num = '';
 				}
 				break;
 			case '=':
-				eval();
+				eval(input);
 				break;
     		default:
     			input += id;
-    			console.log(input);
-    			$('#screen').text(input);
+    			if (!isNaN(id)) {
+    				num += id;
+    				$('#screen').text(num);
+    			}
     	}
+    	console.log(input);	
     });
 });
