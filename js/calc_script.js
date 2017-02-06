@@ -4,7 +4,7 @@ $(document).ready(function(){
 
 	function clearEntry() {
 		$('#screen').text(0);
-		var lastNum = input.match(/(\d+.)$/g)[0];	// match the last full number entered
+		var lastNum = input.match(/(\d+\.*\d*.)$/g)[0];	// match the last full number entered
 		input = input.substr(0, input.length-lastNum.length);	// remove last number entered
     	num = '';
 	}
@@ -44,7 +44,7 @@ $(document).ready(function(){
 				break;
     		default:
     			input += id;
-    			if (!isNaN(id)) {
+    			if (!isNaN(id) || id === '.') {
     				num += id;
     				$('#screen').text(num);
     			}
