@@ -4,9 +4,13 @@ $(document).ready(function(){
 
 	function clearEntry() {
 		$('#screen').text(0);
-		var lastNum = input.match(/(\d+\.*\d*.)$/g)[0];	// match the last full number entered
-		input = input.substr(0, input.length-lastNum.length);	// remove last number entered
-    	num = '';
+	
+		// match the last full number and/or operator entered
+		var lastNum = input.match(/(\d+\.?\d*[x\+\-%]?)$/g)[0]; 
+
+		// remove last number entered
+		input = input.substr(0, input.length-lastNum.length);
+		num = '';
 	}
 
 	function allClear () {
@@ -15,8 +19,10 @@ $(document).ready(function(){
 		num = '';
 	}
 
-	function eval (input) {
-		var str = input;
+	function execute (input) {
+		var result = eval(input);
+		input = result;
+		return result;
 	}
 
     $('.calc-btn').click(function () {
@@ -33,22 +39,33 @@ $(document).ready(function(){
 			case '%':
 			case 'x':
 				// if the last character in input is not x+-%
-				if (!/[x\+\-%]$/.test(input)) {
+				if (!/[x\+\-%\.]$/.test(input)) {
 					input += id;
 					$('#screen').text(id);
 					num = '';
 				}
 				break;
+			case '.':
+				if (!/[x\+\-%\.]$/.test(input)) {
+					input += id;
+    				num += id;
+    				$('#screen').text(num);
+				}
+				break;
 			case '=':
-				eval(input);
+				// evaluate input and set the answer to input
+				$('#screen').text(input = execute(input));
+				num = '';
 				break;
     		default:
-    			input += id;
-    			if (!isNaN(id) || id === '.') {
+    			// if id is a number add it to the full number
+    			if (!isNaN(id)) {
+    				input += id;
     				num += id;
     				$('#screen').text(num);
     			}
     	}
-    	console.log(input);	
+
+    	$('#input').text(input);	
     });
 });
