@@ -6,7 +6,7 @@ $(document).ready(function(){
 		$('#screen').text(0);
 	
 		// match the last full number and/or operator entered
-		var lastNum = input.match(/(\d+\.?\d*[x\+\-%]?)$/g)[0]; 
+		var lastNum = input.match(/(\d+\.?\d*[\*\+\-\/]?)$/g)[0]; 
 
 		// remove last number entered
 		input = input.substr(0, input.length-lastNum.length);
@@ -36,17 +36,17 @@ $(document).ready(function(){
     			break;
 			case '+': 
 			case '-':
-			case '%':
-			case 'x':
-				// if the last character in input is not x+-%
-				if (!/[x\+\-%\.]$/.test(input)) {
+			case '/':
+			case '*':
+				// if the last character in input is not x+-%.
+				if (!/[\*\+\-\/\.]$/.test(input)) {
 					input += id;
 					$('#screen').text(id);
 					num = '';
 				}
 				break;
 			case '.':
-				if (!/[x\+\-%\.]$/.test(input)) {
+				if (!/[\*\+\-\/\.]$/.test(input)) {
 					input += id;
     				num += id;
     				$('#screen').text(num);
