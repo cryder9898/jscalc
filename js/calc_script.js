@@ -54,18 +54,23 @@ $(document).ready(function(){
 				break;
 			case '=':
 				// evaluate input and set the answer to input
-				$('#screen').text(input = execute(input));
+				input = execute(input);
+				var nStr = toString(Math.round(Number(input) * 100) / 100);
+				if (nStr.length > 11) {
+					$('#screen').text('0');
+				} else {
+					$('#screen').text(nStr);
+				}
 				num = '';
 				break;
     		default:
     			// if id is a number add it to the full number
-    			if (!isNaN(id)) {
+    			if (!isNaN(id) && num.length < 11) {
     				input += id;
     				num += id;
     				$('#screen').text(num);
     			}
     	}
-
     	$('#input').text(input);	
     });
 });
