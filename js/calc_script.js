@@ -4,6 +4,7 @@ $(document).ready(function(){
 
 	function clearEntry() {
 		$('#screen').text(0);
+		$('#screen').css('font-size', '50px');
 	
 		// match the last full number and/or operator entered
 		var lastNum = input.match(/(\d+\.?\d*[\*\+\-\/]?)$/g)[0]; 
@@ -15,6 +16,7 @@ $(document).ready(function(){
 
 	function allClear () {
 		$('#screen').text(0);
+		$('#screen').css('font-size', '50px');	
 		input = '';
 		num = '';
 	}
@@ -55,8 +57,11 @@ $(document).ready(function(){
 			case '=':
 				// evaluate input and set the answer to input
 				input = execute(input);
-				var nStr = Math.round(Number(input) * 100) / 100;
-				$('#screen').text(nStr);
+				var result = Math.round(Number(input) * 100) / 100;
+				if (result > 9999999999999) {
+					$('#screen').css('font-size', '30px');
+				}
+				$('#screen').text(result);
 				num = '';
 				break;
     		default:
