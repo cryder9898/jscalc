@@ -55,12 +55,8 @@ $(document).ready(function(){
 			case '=':
 				// evaluate input and set the answer to input
 				input = execute(input);
-				var nStr = toString(Math.round(Number(input) * 100) / 100);
-				if (nStr.length > 11) {
-					$('#screen').text('0');
-				} else {
-					$('#screen').text(nStr);
-				}
+				var nStr = Math.round(Number(input) * 100) / 100;
+				$('#screen').text(nStr);
 				num = '';
 				break;
     		default:
