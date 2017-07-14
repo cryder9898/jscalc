@@ -2,14 +2,15 @@ body {
 	background-color: #212121;
 }
 
-.calc{
+.calc {
 	padding: 8px;
 	border-radius: 10px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
 	border-color: #00b8d4;
 	margin-top: 5%;
 	border-style: solid;
 	text-align: center;
-	width: 350px;
 }
 
 .display {
